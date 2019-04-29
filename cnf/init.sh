@@ -8,6 +8,9 @@ then
 	echo "Modifing apache2"
 	mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.old
 	cp apache2.conf /etc/apache2/apache2.conf
+	
+	mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.old
+	cp apache-host.conf /etc/apache2/sites-available/000-default.conf
 fi
 
 if [ -d "/etc/php5/apache2/" ] 
