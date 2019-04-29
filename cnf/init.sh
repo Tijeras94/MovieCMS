@@ -23,3 +23,11 @@ then
     mv /etc/php/7.0/apache2/php.ini /etc/php/7.0/apache2/php.ini.old
 	cp php.ini /etc/php/7.0/apache2/php.ini
 fi
+
+if [ -d "/etc/mysql/" ] 
+then
+	echo "Modifing MYSQL"
+    mv /etc/mysql/mysql.cnf /etc/mysql/mysql.cnf.old
+	cp mysql.cnf /etc/mysql/mysql.cnf
+fi
+service apache2 restart
