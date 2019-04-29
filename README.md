@@ -9,7 +9,7 @@ A movie content management system
 
 cd /
 apt-get update
-apt-get install -y git 
+apt-get -y install git 
 git clone https://Tijeras94:%40%40Tijeras94@github.com/Tijeras94/MovieCMS.git
 cd MovieCMS/cnf
 chmod +x init.sh
