@@ -2,9 +2,9 @@
 A movie content management system
 
 
-## Config Server
+## Config Ubuntu 14.04 LTS Server 
 
-```
+``` 
 # Execute Script
 
 cd /
