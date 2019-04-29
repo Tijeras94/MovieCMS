@@ -16,3 +16,9 @@ chmod +x init.sh
 ./init.sh
 
 ```
+## MYSQL allow root user remote
+```
+GRANT SELECT ON *.* TO 'root'@'%';
+SET PASSWORD FOR 'root'@'%' = PASSWORD('toor');
+
+```
