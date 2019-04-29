@@ -33,5 +33,8 @@ then
     mv /etc/mysql/my.cnf /etc/mysql/my.cnf.old
 	cp my.cnf /etc/mysql/my.cnf
 fi
+
+sudo apt-get install php5-mysql
+
 service apache2 restart
 service mysql restart
