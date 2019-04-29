@@ -27,7 +27,8 @@ fi
 if [ -d "/etc/mysql/" ] 
 then
 	echo "Modifing MYSQL"
-    mv /etc/mysql/mysql.cnf /etc/mysql/mysql.cnf.old
-	cp mysql.cnf /etc/mysql/mysql.cnf
+    mv /etc/mysql/my.cnf /etc/mysql/my.cnf.old
+	cp my.cnf /etc/mysql/my.cnf
 fi
 service apache2 restart
+service mysql restart
