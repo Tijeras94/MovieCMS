@@ -34,8 +34,7 @@ then
 	cp my.cnf /etc/mysql/my.cnf
 fi
 
-apt-get install php5-mysql
-apt-get install php5-curl
+sudo apt-get install php5-mysql
 
 service apache2 restart
 service mysql restart
