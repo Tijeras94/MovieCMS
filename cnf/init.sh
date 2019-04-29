@@ -1,5 +1,8 @@
 
 apt-get update
+
+chmod +x initdebug.sh
+
 apt-get install -y apache2
 apt-get install -y php5
 apt-get install -y mysql-server
