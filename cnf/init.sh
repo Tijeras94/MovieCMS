@@ -2,6 +2,7 @@
 apt-get update
 
 chmod +x initdebug.sh
+chmod +x composer-install.sh
 
 apt-get install -y apache2
 apt-get install -y php5
@@ -39,6 +40,8 @@ fi
 
 apt-get install php5-mysql
 apt-get install php5-curl
+
+a2enmod rewrite
 
 service apache2 restart
 service mysql restart
