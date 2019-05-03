@@ -1,4 +1,6 @@
 <?php
+include_once "../vendor/autoload.php";
 
-echo "Hello World";
+
+$m = new MovieCMS\MovieCMS();
 ?>
