@@ -4,7 +4,6 @@ use Medoo\Medoo;
 class MovieCMS
 {
 	function __construct(Router $router,  Medoo $db) {
-
 		$router->setNamespace('MovieCMS\Controllers');
 
 		$router->mount('/auth', function() use ($router) {

@@ -47,6 +47,13 @@ class Router
      */
     private $namespace = '';
 
+    private $container = "null";
+
+    function set_container($container)
+    {
+        $this->container = $container;
+    }
+
     /**
      * Store a before middleware route and a handling function to be executed when accessed using one of the specified methods.
      *
@@ -389,9 +396,11 @@ class Router
             }
             // Check if class exists, if not just ignore and check if the class exists on the default namespace
             if (class_exists($controller)) {
+                $instance = new $controller($this->container);
+
                 // First check if is a static method, directly trying to invoke it.
                 // If isn't a valid static method, we will try as a normal method invocation.
-                if (call_user_func_array([new $controller(), $method], $params) === false) {
+                if (call_user_func_array([$instance, $method], $params) === false) {
                     // Try to call the method as an non-static method. (the if does nothing, only avoids the notice)
                     if (forward_static_call_array([$controller, $method], $params) === false);
                 }

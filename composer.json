@@ -5,7 +5,6 @@
         }
     },
     "require": {
-        "php-di/php-di": "^5.4",
         "catfan/medoo": "^1.6",
         "respect/validation": "^1.1"
     }

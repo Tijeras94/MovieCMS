@@ -10,10 +10,10 @@ class Auth
 	
 	function __construct()
 	{
-		
+
 	}
 
-	function userRegister(Medoo $db)
+	function userRegister()
 	{
 		$usernameValidator = v::alnum()->noWhitespace()->length(1, 15);
 		
@@ -31,8 +31,6 @@ class Auth
 		{
 			$errors['password'] = "password not the same";
 		}
-
-
 
 		echo $this->json_response($errors);
 	}

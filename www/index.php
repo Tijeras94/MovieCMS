@@ -1,12 +1,11 @@
 <?php
-include_once "../vendor/autoload.php";
-use Psr\Container\ContainerInterface;
+include_once "../vendor/autoload.php"; 
 use Medoo\Medoo;
 
-$builder = new DI\ContainerBuilder();
-//$builder->...
-$builder->addDefinitions([
-    Medoo::class => function (ContainerInterface $c) {
+$container = new MovieCMS\Container;
+
+$container->addDefinitions([
+    Medoo::class => function () {
     $d = 	 new Medoo([
 						// required
 						'database_type' => 'mysql',
@@ -21,7 +20,7 @@ $builder->addDefinitions([
     }
 ]); 
 
-$container = $builder->build();
 
 $m = $container->get('MovieCMS\MovieCMS');
+
 ?>
