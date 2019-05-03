@@ -1,12 +1,17 @@
 <?php
 namespace MovieCMS;
-use \Bramus\Router\Router;
-use Medoo\Medoo;
-
+use Medoo\Medoo; 
 class MovieCMS
 {
 	function __construct(Router $router,  Medoo $db) {
 
+		$router->setNamespace('MovieCMS\Controllers');
+
+		$router->mount('/auth', function() use ($router) {
+		    $router->post('/userLogin', 'Auth@userLogin');
+		    $router->post('/userRegister', 'Auth@userRegister');
+		});
+ 
 		$router->get('/', function() { echo 'Index'; });
 
 		// 404 handler
