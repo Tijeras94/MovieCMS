@@ -6,6 +6,7 @@
     },
     "require": {
         "php-di/php-di": "^5.4",
-        "bramus/router": "~1.4"
+        "bramus/router": "~1.4",
+        "catfan/medoo": "^1.6"
     }
 }

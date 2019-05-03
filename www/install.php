@@ -9,7 +9,9 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
 
-    $sql = "GRANT SELECT ON *.* TO 'root'@'%';";
+    $conn->exec("create database MovieCMS;");
+
+    $sql = "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';";
     // use exec() because no results are returned
     $conn->exec($sql);
 
