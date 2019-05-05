@@ -6,19 +6,18 @@ $container = new MovieCMS\Container;
 
 $container->addDefinitions([
     Medoo::class => function () {
-    $d = 	 new Medoo([
-						// required
-						'database_type' => 'mysql',
-						'database_name' => 'MovieCMS',
-						'server' => 'localhost',
-						'username' => 'root',
-						'password' => 'toor'
-						 
-					]);
-
+    $d = new Medoo([
+            // required
+            'database_type' => 'mysql',
+            'database_name' => 'MovieCMS',
+            'server' => 'localhost',
+            'username' => 'root',
+            'password' => 'toor'
+        ]);
     	return $d;
-    }
+    }]);
 
-$m = $container->get('MovieCMS\MovieCMS');
+$m = $container->get(Medoo::class);
 
+//$container->callm($m, "userLogin", array(2,4));
 ?>
