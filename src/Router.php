@@ -47,11 +47,20 @@ class Router
      */
     private $namespace = '';
 
+    /**
+     * @var Container $container used for exec
+     */
     private $container = "null";
 
     function set_container($container)
     {
         $this->container = $container;
+    }
+
+
+    function __construct($container)
+    {
+        $this->set_container($container);
     }
 
     /**
@@ -383,7 +392,8 @@ class Router
     private function invoke($fn, $params = [])
     {
         if (is_callable($fn)) {
-            call_user_func_array($fn, $params);
+            //call_user_func_array($fn, $params);
+            $this->container->callf($fn, $params);
         }
 
         // If not, check the existence of special parameters
@@ -396,14 +406,16 @@ class Router
             }
             // Check if class exists, if not just ignore and check if the class exists on the default namespace
             if (class_exists($controller)) {
-                $instance = new $controller($this->container);
+                // $instance = new $controller($this->container);
+                $instance = $this->container->get($controller);
 
                 // First check if is a static method, directly trying to invoke it.
                 // If isn't a valid static method, we will try as a normal method invocation.
-                if (call_user_func_array([$instance, $method], $params) === false) {
+                //if (call_user_func_array([$instance, $method], $params) === false) {
                     // Try to call the method as an non-static method. (the if does nothing, only avoids the notice)
-                    if (forward_static_call_array([$controller, $method], $params) === false);
-                }
+                //    if (forward_static_call_array([$controller, $method], $params) === false);
+                //}
+                $this->container->callm($instance,$method, $params);
             }
         }
     }

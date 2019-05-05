@@ -7,16 +7,11 @@ use Respect\Validation\Validator as v;
  */
 class Auth
 {
-	
-	function __construct()
-	{
 
-	}
-
-	function userRegister()
+	function userRegister( \Medoo\Medoo $db)
 	{
 		$usernameValidator = v::alnum()->noWhitespace()->length(1, 15);
-		
+
 		$errors = [];
 		if(!$usernameValidator->validate(@$_POST['username']))
 		{
@@ -32,16 +27,61 @@ class Auth
 			$errors['password'] = "password not the same";
 		}
 
-		echo $this->json_response($errors);
-	}
+         if($db->count("users", [
+                'username' => $_POST['username'],
+            ]) > 0){
+             $errors['username'] = "username already exists";
+		}
 
-	function userLogin()
-	{	
-		$userID = 132;
-		$token = time() + (5 * 60 * 1000); // added 5 minutes
-		$token = $token . "#" . $userID;
-		$token = $token . "#" . md5("MovieCMS*&^%$/" . $token);
-		echo $this->json_response( array('username' => $_POST['username'] , 'token' =>  $token));
+        if($db->count("users", [
+                'email' => $_POST['email'],
+            ]) > 0){
+            $errors['email'] = "email already exists";
+        }
+
+        if(\count($errors)> 0)
+        {
+            echo $this->json_response($errors);
+            return;
+
+        }
+
+        $db->insert('users', [
+            'username' => $_POST['username'],
+            'email' => $_POST['email'],
+            'password' => md5("MovieCMS*&^%$/" . $_POST['password'])
+        ]);
+
+        echo $this->json_response( array('username' => $_POST['username'] , 'token' =>  $this->makeToken( $db->id())));
+
+    }
+
+    function makeToken($userID)
+    {
+        $token = time() + (5 * 60 * 1000); // added 5 minutes
+        $token = $token . "#" . $userID;
+        $token = $token . "#" . md5("MovieCMS*&^%$/" . $token);
+        return $token;
+    }
+
+    function userLogin( \Medoo\Medoo $db)
+	{
+        $res = $db->select("users", "*", [
+            'AND' => [
+                'OR' => [
+                    'username' => $_POST['username'],
+                    'email' => $_POST['username'],
+                ],
+                'password' => md5("MovieCMS*&^%$/" . $_POST['password'])
+            ]
+        ]);
+        if(count($res) > 0)
+        {
+            $res = $res[0];
+            echo $this->json_response( array('username' => $res['username'] , 'token' => $this->makeToken($res['id'])));
+        }else{
+            echo $this->json_response("Invalid credentials :(");
+        }
 	}
 
 	function json_response($message = null, $code = 200)

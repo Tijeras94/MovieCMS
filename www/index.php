@@ -4,6 +4,7 @@ use Medoo\Medoo;
 
 $container = new MovieCMS\Container;
 
+
 $container->addDefinitions([
     Medoo::class => function () {
     $d = new Medoo([
@@ -15,9 +16,14 @@ $container->addDefinitions([
             'password' => 'toor'
         ]);
     	return $d;
-    }]);
+    },
+    \MovieCMS\Router::class => function() use ($container)
+    {
+        return new \MovieCMS\Router($container);
+    }
+    ]);
 
-$m = $container->get(Medoo::class);
+//init entry point
+$m = $container->get("\MovieCMS\MovieCMS");
 
-//$container->callm($m, "userLogin", array(2,4));
 ?>
