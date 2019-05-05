@@ -18,8 +18,6 @@ $container->addDefinitions([
 
     	return $d;
     }
-]); 
-
 
 $m = $container->get('MovieCMS\MovieCMS');
 
